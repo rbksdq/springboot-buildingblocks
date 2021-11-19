@@ -24,6 +24,7 @@ public class UserService {
 
     //createUser method
     public User createUser(User user){
+
         return userRepository.save(user);
     }
 
@@ -48,8 +49,10 @@ public class UserService {
 
     //getUserByUserName method
     public  User getUserByUsername(String username){
+
         return userRepository.findByUsername(username);
     }
+
 
 
 }

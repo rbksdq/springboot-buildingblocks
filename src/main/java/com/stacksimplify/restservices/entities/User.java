@@ -5,6 +5,7 @@ package com.stacksimplify.restservices.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 //entity
 @Entity //(name = "user")
@@ -30,8 +31,10 @@ public class User {
     @Column(name = "SSN", length = 50, nullable = false, unique = true)
     private String ssn;
 
-    //no argument constructor
+    @OneToMany (mappedBy = "user") //reference side foreign key
+    private List<Order> order;
 
+    //no argument constructor
     public User() {
         //super();
         }
@@ -106,7 +109,14 @@ public class User {
         this.ssn = ssn;
     }
 
-    //tostring is optional .. required for bean logging
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+//tostring is optional .. required for bean logging
 
     @Override
     public String toString() {

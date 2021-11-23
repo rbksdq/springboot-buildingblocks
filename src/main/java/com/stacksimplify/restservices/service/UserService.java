@@ -25,6 +25,7 @@ public class UserService {
     }
 
     //createUser method
+
     public User createUser(User user)throws UserExistException {
         //check if user exists using username else throw UserExistException
         User existingUser= userRepository.findByUsername(user.getUsername());

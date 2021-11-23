@@ -3,6 +3,8 @@ package com.stacksimplify.restservices.entities;
 //import javax.persistence.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 //entity
 @Entity //(name = "user")
@@ -12,8 +14,11 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+
+    @NotEmpty(message= "username is Mandatory field. please enter username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
     private String username;
+    @Size(min=2, message = "firstName should be at least 2 characters")
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
     private String firstname;
     @Column(name = "Last_NAME", length = 50, nullable = false)

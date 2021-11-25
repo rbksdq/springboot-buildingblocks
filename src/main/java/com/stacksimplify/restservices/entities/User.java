@@ -2,6 +2,8 @@ package com.stacksimplify.restservices.entities;
 
 //import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -10,6 +12,8 @@ import java.util.List;
 //entity
 @Entity //(name = "user")
 @Table(name = "User")
+@JsonFilter(value = "userFilter")
+//@JsonIgnoreProperties({"firstname","lastname"}) . part of static filtering
 public class User {
 
     @Id
@@ -29,6 +33,7 @@ public class User {
     @Column(name = "Role", length = 50, nullable = false)
     private  String role;
     @Column(name = "SSN", length = 50, nullable = false, unique = true)
+    //@JsonIgnore static filtering part
     private String ssn;
 
     @OneToMany (mappedBy = "user") //reference side foreign key

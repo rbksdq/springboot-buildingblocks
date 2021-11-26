@@ -2,7 +2,7 @@ package com.stacksimplify.restservices.entities;
 
 //import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -12,31 +12,45 @@ import java.util.List;
 //entity
 @Entity //(name = "user")
 @Table(name = "User")
-@JsonFilter(value = "userFilter")
+//@JsonFilter(value = "userFilter") --for mappingJackson filtering
 //@JsonIgnoreProperties({"firstname","lastname"}) . part of static filtering
 public class User {
 
     @Id
     @GeneratedValue
+    @JsonView(Views.External.class)
     private Long id;
 
     @NotEmpty(message= "username is Mandatory field. please enter username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
+    @JsonView(Views.External.class)
     private String username;
+
     @Size(min=2, message = "firstName should be at least 2 characters")
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
+    @JsonView(Views.External.class)
     private String firstname;
+
     @Column(name = "Last_NAME", length = 50, nullable = false)
+    @JsonView(Views.External.class)
     private String lastname;
+
     @Column(name = "Email_Address", length = 50, nullable = false)
+    @JsonView(Views.External.class)
     private String email;
+
     @Column(name = "Role", length = 50, nullable = false)
+    @JsonView(Views.Internal.class)
     private  String role;
+
     @Column(name = "SSN", length = 50, nullable = false, unique = true)
     //@JsonIgnore static filtering part
+    @JsonView(Views.Internal.class)
     private String ssn;
 
+
     @OneToMany (mappedBy = "user") //reference side foreign key
+    @JsonView(Views.Internal.class)
     private List<Order> order;
 
     //no argument constructor

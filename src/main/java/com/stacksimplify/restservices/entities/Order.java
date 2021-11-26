@@ -1,6 +1,7 @@
 package com.stacksimplify.restservices.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 
@@ -10,7 +11,10 @@ public class Order {
 
     @Id
     @GeneratedValue
+    @JsonView(Views.Internal.class)
     private Long orderid;
+
+    @JsonView(Views.Internal.class)
     private String orderdescription;
 
     @ManyToOne(fetch = FetchType.LAZY)

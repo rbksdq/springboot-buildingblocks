@@ -1,70 +1,27 @@
-package com.stacksimplify.restservices.entities;
+package com.stacksimplify.restservices.dtos;
 
-//import javax.persistence.*;
+import com.stacksimplify.restservices.entities.Order;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.List;
 
-//entity
-@Entity //(name = "user")
-@Table(name = "User")
-//@JsonFilter(value = "userFilter") --for mappingJackson filtering
-//@JsonIgnoreProperties({"firstname","lastname"}) . part of static filtering
-public class User {
+public class UserDtoV2 {
 
-    @Id
-    @GeneratedValue
-    @JsonView(Views.External.class)
     private Long id;
-
-    @NotEmpty(message= "username is Mandatory field. please enter username")
-    @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
-    @JsonView(Views.External.class)
     private String username;
-
-    @Size(min=2, message = "firstName should be at least 2 characters")
-    @Column(name = "FIRST_NAME", length = 50, nullable = false)
-    @JsonView(Views.External.class)
     private String firstname;
-
-    @Column(name = "Last_NAME", length = 50, nullable = false)
-    @JsonView(Views.External.class)
     private String lastname;
-
-    @Column(name = "Email_Address", length = 50, nullable = false)
-    @JsonView(Views.External.class)
     private String email;
-
-    @Column(name = "Role", length = 50, nullable = false)
-    @JsonView(Views.Internal.class)
     private  String role;
-
-    @Column(name = "SSN", length = 50, nullable = false, unique = true)
-    //@JsonIgnore static filtering part
-    @JsonView(Views.Internal.class)
     private String ssn;
-
-
-    @OneToMany (mappedBy = "user") //reference side foreign key
-    @JsonView(Views.Internal.class)
     private List<Order> order;
-
-    @Column(name = "ADDRESS")
     private String address;
 
-
     //no argument constructor
-    public User() {
-        //super();
-        }
 
-    // fields constructor
+    public UserDtoV2() {
+    }
 
-    public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn, List<Order> order, String address) {
+    public UserDtoV2(Long id, String username, String firstname, String lastname, String email, String role, String ssn, List<Order> order, String address) {
         this.id = id;
         this.username = username;
         this.firstname = firstname;
@@ -75,9 +32,6 @@ public class User {
         this.order = order;
         this.address = address;
     }
-
-
-    //getters and setters
 
     public Long getId() {
         return id;
@@ -142,8 +96,6 @@ public class User {
     public void setOrder(List<Order> order) {
         this.order = order;
     }
-//tostring is optional .. required for bean logging
-
 
     public String getAddress() {
         return address;
@@ -153,11 +105,11 @@ public class User {
         this.address = address;
     }
 
+    //toString
 
-    //ToString
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDtoV2{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +

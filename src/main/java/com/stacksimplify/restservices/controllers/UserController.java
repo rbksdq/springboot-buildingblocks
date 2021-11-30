@@ -5,9 +5,13 @@ import com.stacksimplify.restservices.exceptions.UserExistException;
 import com.stacksimplify.restservices.exceptions.UserNameNotFoundException;
 import com.stacksimplify.restservices.exceptions.UserNotFoundException;
 import com.stacksimplify.restservices.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,8 @@ import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 
+
+@Api(tags = "User Management RESTful Services", value = "UserCOntroller",description = "Controller For User Management Services")
 @RestController
 @Validated
 @RequestMapping(value = "/users")
@@ -28,7 +34,8 @@ public class UserController {
     private UserService userService;
 
     //getALLUsers method
-    @GetMapping
+    @ApiOperation(value = "Retrieve list of Users")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getALLUsers(){
 
         return userService.getALLUsers();
@@ -36,8 +43,9 @@ public class UserController {
     //create user method
     //@RequestBody annotation
     //@PostMapping annotation
+    @ApiOperation(value = "Creates a new user")
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
+    public ResponseEntity<User> createUser(@ApiParam("User information for a new user to be created") @Valid @RequestBody User user, UriComponentsBuilder builder) {
         try{
             userService.createUser(user);
             HttpHeaders headers= new HttpHeaders();
@@ -52,9 +60,10 @@ public class UserController {
 
     //getUserById
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id){
+    public User getUserById(@PathVariable("id") @Min(1) Long id){
         try {
-            return userService.getUserById(id);
+            Optional<User> userOptional= userService.getUserById(id);
+            return userOptional.get();
         } catch (UserNotFoundException ex){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
         }

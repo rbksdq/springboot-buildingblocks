@@ -76,6 +76,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-core</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<dependency>
 			<groupId>de.codecentric</groupId>
 			<artifactId>cxf-spring-boot-starter-maven-plugin-reactor</artifactId>
 			<version>2.3.0.RELEASE</version>
@@ -111,6 +117,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.5.6</version>
 				<executions>
 					<execution>
 						<id>build-info</id>
@@ -124,6 +131,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 
 				<configuration>
 					<source>1.8</source>

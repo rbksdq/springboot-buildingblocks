@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "orders")
 public class Order {
 
-    @Id
+    @Id //primary key
     @GeneratedValue
     @JsonView(Views.Internal.class)
     private Long orderid;
@@ -17,7 +17,7 @@ public class Order {
     @JsonView(Views.Internal.class)
     private String orderdescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //foreign key
     @JsonIgnore
     private User user;
 

@@ -31,7 +31,6 @@ public class UserModelMapperController {
         Optional<User> userOptional = userService.getUserById(id);
         if (!userOptional.isPresent()) {
             throw new UserNameNotFoundException("User not found");
-
         }
         User user = userOptional.get();
         UserMmDto userDto = modelMapper.map(user, UserMmDto.class);

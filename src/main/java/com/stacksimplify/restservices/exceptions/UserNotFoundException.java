@@ -7,6 +7,7 @@ public class UserNotFoundException extends Exception{
 
     //default constructor using super class
     public UserNotFoundException(String message) {
+
         super(message);
     }
 

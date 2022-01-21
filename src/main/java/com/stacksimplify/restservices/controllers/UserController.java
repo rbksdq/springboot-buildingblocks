@@ -17,14 +17,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 
 
-@Api(tags = "User Management RESTful Services", value = "UserCOntroller",description = "Controller For User Management Services")
+@Api(tags = "User Management RESTful Services", value = "UserController",description = "Controller For User Management Services")
 @RestController
 @Validated
 @RequestMapping(value = "/users")
@@ -33,13 +32,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     //getALLUsers method
     @ApiOperation(value = "Retrieve list of Users")
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) //swagger (response)
     public List<User> getALLUsers(){
 
         return userService.getALLUsers();
     }
+
+
     //create user method
     //@RequestBody annotation
     //@PostMapping annotation
@@ -54,9 +57,9 @@ public class UserController {
         }catch (UserExistException ex){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
-
-
     }
+
+
 
     //getUserById
     @GetMapping("/{id}")
@@ -69,6 +72,8 @@ public class UserController {
         }
     }
 
+
+
     //updateUserById
     @PutMapping("/{id}")
     public User updateUserById(@PathVariable("id") Long id, @RequestBody User user){
@@ -78,6 +83,8 @@ public class UserController {
            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
        }
     }
+
+
 
     //deleteUserById
     @DeleteMapping("/{id}")
@@ -89,12 +96,14 @@ public class UserController {
        }
     }
 
+
+
     //getuserbyusername
     @GetMapping("/byusername/{username}")
     public User getUserByUsername(@PathVariable("username") String username) throws UserNotFoundException, UserNameNotFoundException {
         User user = userService.getUserByUsername(username);
         if(user==null)
-            throw new UserNameNotFoundException("UserName: '"+ username+"'not found in user repository");
+            throw new UserNameNotFoundException("UserName: '"+ username+"' not found in user repository");
             return user;
     }
 
